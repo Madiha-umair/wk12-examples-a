@@ -1,0 +1,156 @@
+#stage {
+  height:300px;
+  border:1px solid #000;
+}
+#stage:hover #ball {
+  /* In JS, you can access this CSS property via [element].style.animationPlayState */
+
+  animation-play-state:paused; /* default is "running" */
+}
+#ball {
+  position:relative;
+  width:75px;
+  height:75px;
+  border-radius:50%;
+  background-color:blue;
+  /*
+  animation: [animation-name] [duration] [iteration-count] [animation-direction] [timing-function] [fill-mode] [delay];
+  */
+  /*animation:ball-move 2s 2; */
+  /*animation:ball-move 2s infinite alternate-reverse;*/
+  /*animation:ball-move 2s 3 reverse linear backwards 2s;*/
+  animation:ball-move 2s 3 alternate-reverse both 2s,
+            color-change 2s 3 alternate-reverse both 2s;
+  /*animation:ball-bounce 0.8s 10 alternate ease-in-out;*/
+}
+
+/* "ball-move" is an arbitrary name you give to your keyframe
+ * animation definition
+ */
+@keyframes ball-move {
+  /* your keyframe styles go here */
+  /* Make sure you're consistent about which properties you're
+   * animating.
+   */
+
+  0% {
+    top:0;
+    left:0;
+  }
+  50% {
+    top:calc(100% - 75px); /* 100% down minus height of ball */
+    left:calc(50% - 37.5px); /* 50% across minus half width of ball */
+  }
+  100% {
+    top:0;
+    left:calc(100% - 75px);
+  }
+}
+@keyframes color-change {
+  0% {
+    background-color:blue;
+  }
+  25% {
+    background-color:red;
+  }
+  50% {
+    background-color:yellow;
+  }
+  75% {
+    background-color:green;
+  }
+  100% {
+    background-color:pink;
+  }
+}
+
+@keyframes ball-bounce {
+  0% {
+    top:0;
+    transform:scaleY(1);
+  }
+  100% {
+    top:calc(100% - 65px);
+    transform:scaleY(0.8);
+  }
+}
+
+
+/* EXTRA */
+#scene {
+  max-width:650px;
+  height:500px;
+  background-color:#8dd9ff;
+  position:relative;
+  overflow:hidden;
+}
+#clouds {
+  position:relative;
+  width:650px;
+  left:10px;
+  animation:clouds 10s infinite alternate linear;
+  top:30px;
+}
+.cloud {
+  width:150px;
+  height:150px;
+  background:#fff;
+  border-radius:75px 75px 60px 60px;
+  position:relative;
+  left:100px;
+}
+.cloud::before {
+  content:"";
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  left: -60px;
+  bottom: 15px;
+}
+.cloud::after {
+  content:"";
+  width: 120px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  bottom: 15px;
+  right: -80px;
+}
+.cloud:nth-child(2) {
+  transform:scale(0.8);
+  left:400px;
+}
+@keyframes clouds {
+  100% {
+    left:25px;
+  }
+}
+#sun {
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  background-color:rgb(255, 251, 218);
+  position:absolute;
+  left:calc(80% - 25px);
+  top:50px;
+  animation:sun-glow 8s infinite alternate;
+ 
+}
+@keyframes sun-glow {
+  0% {
+    box-shadow:0 0 40px 60px rgba(255, 251, 218, 0.6);
+  }
+  100% {
+    box-shadow:0 0 40px 70px rgba(255,251,218,0.6);
+  }
+}
+#grass {
+  background:radial-gradient(ellipse at 80% 10%, yellow, #36a536);
+  height:50px;
+  width:100%;
+  position:absolute;
+  bottom:0;
+}
